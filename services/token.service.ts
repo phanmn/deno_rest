@@ -17,7 +17,7 @@ class TokenService {
     const { token, user, expires, type, blacklisted } = options;
     return Token.insertOne(
       { token, user, expires, type, blacklisted, createdAt },
-    );
+    ) as Promise<Document>;
   }
 
   /**

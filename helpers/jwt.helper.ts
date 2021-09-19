@@ -27,7 +27,8 @@ class JwtHelper {
       exp: Date.now() / 1000 + expires, // in seconds
     };
 
-    return create(header, payload, jwtSecret);
+    // return create(header, payload, jwtSecret);
+    return create(header, payload, null);
   }
 
   /**
@@ -37,7 +38,8 @@ class JwtHelper {
    */
   public static async getJwtPayload(token: string): Promise<Payload | Error> {
     try {
-      return await verify(token, jwtSecret, "HS512");
+      // return await verify(token, jwtSecret, "HS512");
+      return await verify(token, null);
     } catch (_e) {
       return throwError({
         status: Status.Unauthorized,

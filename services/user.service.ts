@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 import { Document, ObjectId, Status } from "../deps.ts";
 import HashHelper from "../helpers/hash.helper.ts";
 import { throwError } from "../middlewares/errorHandler.middleware.ts";
@@ -34,12 +35,12 @@ class UserService {
         createdAt,
         docVersion: 1,
       },
-    );
+    ) as Document;
 
     if (user) {
       await UserHistory.insertOne(
         {
-          id: user,
+          id: user.id,
           name,
           email,
           password: hashedPassword,
@@ -139,15 +140,15 @@ class UserService {
       },
     });
     if (result) {
-      await UserHistory.insertOne(
-        {
-          id: new ObjectId(id),
-          name,
-          role,
-          isDisabled,
-          docVersion: newDocVersion,
-        },
-      );
+      // await UserHistory.insertOne(
+      //   {
+      //     id: new ObjectId(id),
+      //     name,
+      //     role,
+      //     isDisabled,
+      //     docVersion: newDocVersion,
+      //   },
+      // );
     } else {
       return throwError({
         status: Status.BadRequest,
@@ -187,18 +188,18 @@ class UserService {
       const { name, email, role, isDisabled, createdAt, docVersion } = user;
       const newDocVersion = docVersion + 1;
       const updatedAt = new Date();
-      await UserHistory.insertOne(
-        {
-          id: new ObjectId(id),
-          name,
-          email,
-          role,
-          isDisabled,
-          createdAt,
-          updatedAt,
-          docVersion: newDocVersion,
-        },
-      );
+      // await UserHistory.insertOne(
+      //   {
+      //     id: new ObjectId(id),
+      //     name,
+      //     email,
+      //     role,
+      //     isDisabled,
+      //     createdAt,
+      //     updatedAt,
+      //     docVersion: newDocVersion,
+      //   },
+      // );
     } else {
       return throwError({
         status: Status.BadRequest,
